@@ -349,22 +349,27 @@ class: center, middle, inverse
 
 ### let's live code, nothing can go wrong
 
-### for later: LINK TODO
+--
+
+### for later: https://github.com/sharlagelfand/reprex-talk/blob/main/reprex_code.r
 
 ---
+
 class: middle, center
 
-## you might not even need to ask for help
+## people will be thankful
 
 ```{r, echo = FALSE, out.width = "80%"}
-knitr::include_graphics("images/stephen-turner.png")
+knitr::include_graphics("images/shel-kariuki.png")
 ```
 
 ---
 class: middle, center
 
+## but you might not even need to ask for help
+
 ```{r, echo = FALSE, out.width = "80%"}
-knitr::include_graphics("images/shel-kariuki.png")
+knitr::include_graphics("images/stephen-turner.png")
 ```
 
 ---
