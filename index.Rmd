@@ -41,9 +41,9 @@ class: middle, center
 ---
 class: middle, center
 
-## Your code will eventually break
+## your code will eventually break
 
-## You will look for help
+## you will look for help
 
 ---
 class: middle, center
@@ -55,16 +55,9 @@ knitr::include_graphics("images/xkcd.png")
 ---
 class: middle, center
 
-## You will have to ask for help
+## you will have to ask for help
 
-## You will have to send someone your code
-
----
-
-```{r}
-mtcars %>%
-  filter(cyl == 6)
-```
+## you will have to send someone your code
 
 ---
 
@@ -95,7 +88,7 @@ dogs %>%
 data <- tibble(date = "2021-01-02")
 ```
 
-```{r, eval = FALSE}
+```{r example, eval = FALSE}
 library(dplyr)
 library(ggplot2)
 library(readxl)
@@ -117,7 +110,7 @@ data %>%
                           is.na(date) ~ NA))
 ```
 
-```{r, echo = FALSE}
+```{r example-error, echo = FALSE}
 data %>%
   mutate(year = case_when(
     date <= "2020-12-31" & date >= "2020-01-01" ~ 2020,
@@ -164,7 +157,7 @@ knitr::include_graphics("images/yihui-3.png")
 ---
 class: middle, center, inverse
 
-# "Reproducible example"
+# "reproducible example"
 
 ---
 class: middle, inverse
@@ -190,7 +183,7 @@ https://www.tidyverse.org/help/
 ---
 class: middle, center
 
-# "Other people can run it"
+# "other people can run it"
 
 ---
 class: middle, center
@@ -209,24 +202,29 @@ knitr::include_graphics("images/run-a-screenshot.png")
 ---
 class: middle, center
 
-## `r structure("\U261D", class = "emoji")` Libraries
+## `r structure("\U261D", class = "emoji")` libraries
 
-## `r structure("\U270C", class = "emoji")` Code
+## `r structure("\U270C", class = "emoji")` code
 
-## `r structure("\U1F44C", class = "emoji")` Data
+## `r structure("\U1F44C", class = "emoji")` data
 
 ---
-```{r, echo = FALSE}
-data <- tibble(date = "2021-01-02")
+
+```{r example, eval = FALSE}
 ```
+
+```{r example-error, echo = FALSE}
+```
+
+---
 
 ```{r, eval = FALSE}
 library(dplyr) #<<
 library(ggplot2)
-library(OpenStreetMap)
 library(readxl) #<<
 library(tidytext)
 library(janitor)
+library(lubridate)
 
 # Read data
 setwd("/Users/sharla/Documents/my_work_folder/project_1/data") #<<
@@ -241,9 +239,13 @@ data %>% #<<
   mutate(year = case_when(date <= "2020-12-31" & date >= "2020-01-01" ~ 2020, #<<
                           is.na(date) ~ NA)) #<<
 ```
+
+```{r example-error, echo = FALSE}
+```
+
 ---
 
-```{r, eval = FALSE}
+```{r example-data, eval = FALSE}
 library(dplyr)
 library(readxl)
 
@@ -255,6 +257,20 @@ data %>%
                           is.na(date) ~ NA))
 ```
 
+```{r example-error, echo = FALSE}
+```
+
+---
+
+## what if i don't know what code to include?
+
+--
+
+### add one line until it breaks
+
+--
+
+### remove one line until it works... then add back the broken line
 ---
 
 ```{r, eval = FALSE}
@@ -278,18 +294,20 @@ knitr::include_graphics("images/no_csv.png")
 
 ---
 
-```{r}
-dput(head(mtcars))
-```
-
----
+## make fake data inline
 
 .pull-left[
 ```{r}
 library(dplyr)
 
 tibble(x = c(1, 2), y = c(2, 4))
+```
+]
 
+--
+
+.pull-right[
+```{r}
 tribble(
   ~x, ~y,
   1, 2, 
@@ -298,20 +316,20 @@ tribble(
 ```
 ]
 
---
+---
 
-.pull-right[
-```{r, echo = FALSE}
-knitr::include_graphics("images/tribble.jpg")
+```{r example-data, eval = FALSE}
 ```
-]
+
+```{r example-error, echo = FALSE}
+```
 
 ---
 
 ```{r}
 library(dplyr)
 
-tibble(date = "2020-01-01") %>% #<<
+tibble(date = "2020-01-01") %>% 
   mutate(year = case_when(
     date <= "2020-12-31" & date >= "2020-01-01" ~ 2020,
     is.na(date) ~ NA
@@ -322,6 +340,8 @@ tibble(date = "2020-01-01") %>% #<<
 class: middle, center
 
 # "and feel your pain"
+
+### people are better at understanding output than you'd expect
 
 ---
 class: center
@@ -371,6 +391,10 @@ class: middle, center
 ```{r, echo = FALSE, out.width = "80%"}
 knitr::include_graphics("images/stephen-turner.png")
 ```
+
+???
+
+it's common to solve your problem through the act of creating the reprex
 
 ---
 class: middle, center

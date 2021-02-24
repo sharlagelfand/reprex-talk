@@ -32,9 +32,9 @@ class: middle, center
 ---
 class: middle, center
 
-## Your code will eventually break
+## your code will eventually break
 
-## You will look for help
+## you will look for help
 
 ---
 class: middle, center
@@ -44,28 +44,9 @@ class: middle, center
 ---
 class: middle, center
 
-## You will have to ask for help
+## you will have to ask for help
 
-## You will have to send someone your code
-
----
-
-
-```r
-mtcars %&gt;%
-  filter(cyl == 6)
-```
-
-```
-##                 mpg cyl  disp  hp drat    wt  qsec vs am gear carb
-## Mazda RX4      21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
-## Mazda RX4 Wag  21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
-## Hornet 4 Drive 21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
-## Valiant        18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1
-## Merc 280       19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4
-## Merc 280C      17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4
-## Ferrari Dino   19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6
-```
+## you will have to send someone your code
 
 ---
 
@@ -165,7 +146,7 @@ class: middle, center
 ---
 class: middle, center, inverse
 
-# "Reproducible example"
+# "reproducible example"
 
 ---
 class: middle, inverse
@@ -191,7 +172,7 @@ https://www.tidyverse.org/help/
 ---
 class: middle, center
 
-# "Other people can run it"
+# "other people can run it"
 
 ---
 class: middle, center
@@ -206,23 +187,54 @@ class: middle, center
 ---
 class: middle, center
 
-## ☝ Libraries
+## ☝ libraries
 
-## ✌ Code
+## ✌ code
 
-## 👌 Data
+## 👌 data
 
 ---
 
+
+```r
+library(dplyr)
+library(ggplot2)
+library(readxl)
+library(tidytext)
+library(janitor)
+library(lubridate)
+
+# Read data
+setwd("/Users/sharla/Documents/my_work_folder/project_1/data")
+data &lt;- read_xlsx("Export 2021-01-02 V5.xlsx")
+
+# Clean data 
+data &lt;- data %&gt;%
+  clean_names() # Make names look nice
+  
+# Add year
+data %&gt;%
+  mutate(year = case_when(date &lt;= "2020-12-31" &amp; date &gt;= "2020-01-01" ~ 2020,
+                          is.na(date) ~ NA))
+```
+
+
+```
+## Error: Problem with `mutate()` input `year`.
+## x must be a double vector, not a logical vector.
+## ℹ Input `year` is `case_when(...)`.
+```
+
+---
 
 
 ```r
 *library(dplyr)
 library(ggplot2)
-library(OpenStreetMap)
 *library(readxl)
 library(tidytext)
 library(janitor)
+library(lubridate)
 
 # Read data
 *setwd("/Users/sharla/Documents/my_work_folder/project_1/data")
@@ -237,6 +249,14 @@ data &lt;- data %&gt;%
 * mutate(year = case_when(date &lt;= "2020-12-31" &amp; date &gt;= "2020-01-01" ~ 2020,
 *                         is.na(date) ~ NA))
 ```
+
+
+```
+## Error: Problem with `mutate()` input `year`.
+## x must be a double vector, not a logical vector.
+## ℹ Input `year` is `case_when(...)`.
+```
+
 ---
 
 
@@ -252,6 +272,24 @@ data %&gt;%
                           is.na(date) ~ NA))
 ```
 
+
+```
+## Error: Problem with `mutate()` input `year`.
+## x must be a double vector, not a logical vector.
+## ℹ Input `year` is `case_when(...)`.
+```
+
+---
+
+## what if i don't know what code to include?
+
+--
+
+### add one line until it breaks
+
+--
+
+### remove one line until it works... then add back the broken line
 ---
 
 
@@ -274,24 +312,7 @@ class: middle
 
 ---
 
-
-```r
-dput(head(mtcars))
-```
-
-```
-## structure(list(mpg = c(21, 21, 22.8, 21.4, 18.7, 18.1), cyl = c(6, 
-## 6, 4, 6, 8, 6), disp = c(160, 160, 108, 258, 360, 225), hp = c(110, 
-## 110, 93, 110, 175, 105), drat = c(3.9, 3.9, 3.85, 3.08, 3.15, 
-## 2.76), wt = c(2.62, 2.875, 2.32, 3.215, 3.44, 3.46), qsec = c(16.46, 
-## 17.02, 18.61, 19.44, 17.02, 20.22), vs = c(0, 0, 1, 1, 0, 1), 
-##     am = c(1, 1, 1, 0, 0, 0), gear = c(4, 4, 4, 3, 3, 3), carb = c(4, 
-##     4, 1, 1, 2, 1)), row.names = c("Mazda RX4", "Mazda RX4 Wag", 
-## "Datsun 710", "Hornet 4 Drive", "Hornet Sportabout", "Valiant"
-## ), class = "data.frame")
-```
-
----
+## make fake data inline
 
 .pull-left[
 
@@ -308,6 +329,11 @@ tibble(x = c(1, 2), y = c(2, 4))
 ## 1     1     2
 ## 2     2     4
 ```
+]
+
+--
+
+.pull-right[
 
 ```r
 tribble(
@@ -326,11 +352,27 @@ tribble(
 ```
 ]
 
---
+---
 
-.pull-right[
-&lt;img src="images/tribble.jpg" width="491" /&gt;
-]
+
+```r
+library(dplyr)
+library(readxl)
+
+setwd("/Users/sharla/Documents/my_work_folder/project_1/data")
+data &lt;- read_xlsx("Export 2021-01-02 V5.xlsx")
+
+data %&gt;%
+  mutate(year = case_when(date &lt;= "2020-12-31" &amp; date &gt;= "2020-01-01" ~ 2020,
+                          is.na(date) ~ NA))
+```
+
+
+```
+## Error: Problem with `mutate()` input `year`.
+## x must be a double vector, not a logical vector.
+## ℹ Input `year` is `case_when(...)`.
+```
 
 ---
 
@@ -338,7 +380,7 @@ tribble(
 ```r
 library(dplyr)
 
-*tibble(date = "2020-01-01") %&gt;%
+tibble(date = "2020-01-01") %&gt;% 
   mutate(year = case_when(
     date &lt;= "2020-12-31" &amp; date &gt;= "2020-01-01" ~ 2020,
     is.na(date) ~ NA
@@ -355,6 +397,8 @@ library(dplyr)
 class: middle, center
 
 # "and feel your pain"
+
+### people are better at understanding output than you'd expect
 
 ---
 class: center
@@ -398,6 +442,10 @@ class: middle, center
 ## but you might not even need to ask for help
 
 &lt;img src="images/stephen-turner.png" width="80%" /&gt;
+
+???
+
+it's common to solve your problem through the act of creating the reprex
 
 ---
 class: middle, center
