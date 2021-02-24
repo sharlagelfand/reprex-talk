@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Tough Love: Make a Reprex</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Sharla Gelfand" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/xaringanExtra-extra-styles/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Tough Love: Make a Reprex
+## <br>
+### Sharla Gelfand
+
+---
+
+
+
+
+
+
+class: middle, center
+
+## 👋
+
+## @sharlagelfand
+
+---
+class: middle, center
+
+## Your code will eventually break
+
+## You will look for help
+
+---
+class: middle, center
+
+&lt;img src="images/xkcd.png" width="647" /&gt;
+
+---
+class: middle, center
+
+## You will have to ask for help
+
+## You will have to send someone your code
+
+---
+
+
+```r
+mtcars %&gt;%
+  filter(cyl == 6)
+```
+
+```
+##                 mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+## Mazda RX4      21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag  21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
+## Hornet 4 Drive 21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
+## Valiant        18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1
+## Merc 280       19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4
+## Merc 280C      17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4
+## Ferrari Dino   19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6
+```
+
+---
+
+
+```r
+library(dplyr)
+
+mtcars %&gt;%
+  filter(cyl = 6)
+```
+
+```
+## Error: Problem with `filter()` input `..1`.
+## x Input `..1` is named.
+## ℹ This usually means that you've used `=` instead of `==`.
+## ℹ Did you mean `cyl == 6`?
+```
+
+---
+
+
+
+
+```r
+library(dplyr)
+
+# Why does this return no records?!
+dogs %&gt;%
+  filter(is_cute)
+```
+
+```
+## # A tibble: 0 x 1
+## # … with 1 variable: is_cute &lt;lgl&gt;
+```
+
+---
+
+
+
+
+```r
+library(dplyr)
+library(ggplot2)
+library(readxl)
+library(tidytext)
+library(janitor)
+library(lubridate)
+
+# Read data
+setwd("/Users/sharla/Documents/my_work_folder/project_1/data")
+data &lt;- read_xlsx("Export 2021-01-02 V5.xlsx")
+
+# Clean data 
+data &lt;- data %&gt;%
+  clean_names() # Make names look nice
+  
+# Add year
+data %&gt;%
+  mutate(year = case_when(date &lt;= "2020-12-31" &amp; date &gt;= "2020-01-01" ~ 2020,
+                          is.na(date) ~ NA))
+```
+
+
+```
+## Error: Problem with `mutate()` input `year`.
+## x must be a double vector, not a logical vector.
+## ℹ Input `year` is `case_when(...)`.
+```
+
+---
+class: middle, center
+
+&lt;img src="images/code-screenshot.png" width="80%" /&gt;
+
+---
+class: middle, center
+
+&lt;img src="images/code-photo.jpg" width="80%" /&gt;
+
+---
+class: middle, center
+
+&lt;img src="images/yihui-1.png" width="80%" /&gt;
+
+---
+class: middle, center
+
+&lt;img src="images/yihui-2.png" width="80%" /&gt;
+
+---
+class: middle, center
+
+&lt;img src="images/yihui-3.png" width="80%" /&gt;
+
+
+---
+class: middle, center, inverse
+
+# "Reproducible example"
+
+---
+class: middle, inverse
+
+### "If you need help getting unstuck, the first step is to create a reprex, or reproducible example. The goal of a reprex is to package your problematic code in such a way that other people can run it and feel your pain. Then, hopefully, they can provide a solution and put you out of your misery."
+
+https://www.tidyverse.org/help/
+
+---
+class: middle, inverse
+
+### "If you need help getting unstuck, the first step is to create a reprex, or reproducible example. The goal of a reprex is to package your problematic code in such a way that other people can run it and feel your pain. Then, hopefully, &lt;mark&gt;they can provide a solution and put you out of your misery.&lt;/mark&gt;"
+
+https://www.tidyverse.org/help/
+
+---
+class: middle, inverse
+
+### "If you need help getting unstuck, the first step is to create a reprex, or reproducible example. The goal of a reprex is to package your problematic code in such a way that &lt;mark&gt;other people can run it and feel your pain&lt;/mark&gt;. Then, hopefully, they can provide a solution and put you out of your misery."
+
+https://www.tidyverse.org/help/
+
+---
+class: middle, center
+
+# "Other people can run it"
+
+---
+class: middle, center
+
+&lt;img src="images/download-a-car.jpg" width="80%" /&gt;
+
+---
+class: middle, center
+
+&lt;img src="images/run-a-screenshot.png" width="80%" /&gt;
+
+---
+class: middle, center
+
+## ☝ Libraries
+
+## ✌ Code
+
+## 👌 Data
+
+---
+
+
+
+```r
+*library(dplyr)
+library(ggplot2)
+library(OpenStreetMap)
+*library(readxl)
+library(tidytext)
+library(janitor)
+
+# Read data
+*setwd("/Users/sharla/Documents/my_work_folder/project_1/data")
+*data &lt;- read_xlsx("Export 2021-01-02 V5.xlsx")
+
+# Clean data 
+data &lt;- data %&gt;%
+  clean_names() # Make names look nice
+  
+# Add year
+*data %&gt;%
+* mutate(year = case_when(date &lt;= "2020-12-31" &amp; date &gt;= "2020-01-01" ~ 2020,
+*                         is.na(date) ~ NA))
+```
+---
+
+
+```r
+library(dplyr)
+library(readxl)
+
+setwd("/Users/sharla/Documents/my_work_folder/project_1/data")
+data &lt;- read_xlsx("Export 2021-01-02 V5.xlsx")
+
+data %&gt;%
+  mutate(year = case_when(date &lt;= "2020-12-31" &amp; date &gt;= "2020-01-01" ~ 2020,
+                          is.na(date) ~ NA))
+```
+
+---
+
+
+```r
+library(dplyr)
+library(readxl)
+
+*setwd("/Users/sharla/Documents/my_work_folder/project_1/data")
+*data &lt;- read_xlsx("Export 2021-01-02 V5.xlsx")
+
+data %&gt;%
+  mutate(year = case_when(date &lt;= "2020-12-31" &amp; date &gt;= "2020-01-01" ~ 2020,
+                          is.na(date) ~ NA))
+```
+
+---
+class: middle
+
+&lt;img src="images/no_csv.png" width="2877" /&gt;
+
+---
+
+
+```r
+dput(head(mtcars))
+```
+
+```
+## structure(list(mpg = c(21, 21, 22.8, 21.4, 18.7, 18.1), cyl = c(6, 
+## 6, 4, 6, 8, 6), disp = c(160, 160, 108, 258, 360, 225), hp = c(110, 
+## 110, 93, 110, 175, 105), drat = c(3.9, 3.9, 3.85, 3.08, 3.15, 
+## 2.76), wt = c(2.62, 2.875, 2.32, 3.215, 3.44, 3.46), qsec = c(16.46, 
+## 17.02, 18.61, 19.44, 17.02, 20.22), vs = c(0, 0, 1, 1, 0, 1), 
+##     am = c(1, 1, 1, 0, 0, 0), gear = c(4, 4, 4, 3, 3, 3), carb = c(4, 
+##     4, 1, 1, 2, 1)), row.names = c("Mazda RX4", "Mazda RX4 Wag", 
+## "Datsun 710", "Hornet 4 Drive", "Hornet Sportabout", "Valiant"
+## ), class = "data.frame")
+```
+
+---
+
+.pull-left[
+
+```r
+library(dplyr)
+
+tibble(x = c(1, 2), y = c(2, 4))
+```
+
+```
+## # A tibble: 2 x 2
+##       x     y
+##   &lt;dbl&gt; &lt;dbl&gt;
+## 1     1     2
+## 2     2     4
+```
+
+```r
+tribble(
+  ~x, ~y,
+  1, 2, 
+  2, 4
+)
+```
+
+```
+## # A tibble: 2 x 2
+##       x     y
+##   &lt;dbl&gt; &lt;dbl&gt;
+## 1     1     2
+## 2     2     4
+```
+]
+
+--
+
+.pull-right[
+&lt;img src="images/tribble.jpg" width="491" /&gt;
+]
+
+---
+
+
+```r
+library(dplyr)
+
+*tibble(date = "2020-01-01") %&gt;%
+  mutate(year = case_when(
+    date &lt;= "2020-12-31" &amp; date &gt;= "2020-01-01" ~ 2020,
+    is.na(date) ~ NA
+  ))
+```
+
+```
+## Error: Problem with `mutate()` input `year`.
+## x must be a double vector, not a logical vector.
+## ℹ Input `year` is `case_when(...)`.
+```
+
+---
+class: middle, center
+
+# "and feel your pain"
+
+---
+class: center
+
+# `reprex` package
+
+.pull-left[
+### 🪐 isolated
+
+### 🤝 code + output
+
+### 🏦 different venues
+
+### 🖼 images
+]
+
+.pull-right[
+&lt;img src="images/reprex.svg" width="60%" /&gt;
+]
+
+---
+class: center, middle, inverse
+
+### let's live code nothing can go wrong
+
+### for later: LINK TODO
+
+---
+class: middle, center
+
+## you might not even need to ask for help
+
+&lt;img src="images/stephen-turner.png" width="80%" /&gt;
+
+---
+class: middle, center
+
+&lt;img src="images/shel-kariuki.png" width="80%" /&gt;
+
+---
+class: middle, center
+
+&lt;img src="images/rika-gorn.png" width="80%" /&gt;
+
+---
+class: middle, center
+
+&lt;img src="images/julia-lowndes.png" width="80%" /&gt;
+
+---
+class: middle, center
+
+&lt;div class="figure"&gt;
+&lt;img src="images/asking-for-help.jpg" alt="Shannon Pileggi for @WeAreRLadies" width="80%" /&gt;
+&lt;p class="caption"&gt;Shannon Pileggi for @WeAreRLadies&lt;/p&gt;
+&lt;/div&gt;
+
+
+---
+class: middle, center
+
+&lt;div class="figure"&gt;
+&lt;img src="images/reprex.png" alt="Artwork by @allison_horst" width="70%" /&gt;
+&lt;p class="caption"&gt;Artwork by @allison_horst&lt;/p&gt;
+&lt;/div&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"slideNumberFormat": "",
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
