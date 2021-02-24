@@ -1,5 +1,5 @@
 ---
-title: "Tough Love: Make a Reprex"
+title: "make a reprex...... please"
 subtitle: "<br>"  
 author: "Sharla Gelfand"
 output:
@@ -347,7 +347,7 @@ knitr::include_graphics("images/reprex.svg")
 ---
 class: center, middle, inverse
 
-### let's live code nothing can go wrong
+### let's live code, nothing can go wrong
 
 ### for later: LINK TODO
 
