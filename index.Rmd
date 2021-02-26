@@ -366,6 +366,8 @@ class: center
 ```{r, echo = FALSE, out.width = "60%"}
 knitr::include_graphics("images/reprex.svg")
 ```
+
+[github.com/tidyverse/reprex](https://github.com/tidyverse/reprex)
 ]
 
 ---
