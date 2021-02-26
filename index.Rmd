@@ -413,7 +413,7 @@ it's common to solve your problem through the act of creating the reprex
 class: middle, center
 
 ```{r, echo = FALSE, out.width = "80%", fig.cap = "Shannon Pileggi for @WeAreRLadies"}
-knitr::include_graphics("images/asking-for-help.jpg")
+knitr::include_graphics("images/asking-for-help.png")
 ```
 
 ---
